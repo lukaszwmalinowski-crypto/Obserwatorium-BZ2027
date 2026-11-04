@@ -4910,10 +4910,11 @@ body.compactUI #demogCountyCard{background:#f8fbff!important;border:1px solid #a
 'use strict';
 const base={"Bytom":{"2014":172306,"2015":170761,"2016":169617,"2017":168394,"2018":166795,"2019":165263,"2020":153827,"2021":151691,"2022":149576,"2023":147759,"2024":146290,"2025":144598},"Chorzów":{"2014":110337,"2015":109757,"2016":109398,"2017":109021,"2018":108434,"2019":107807,"2020":104448,"2021":103229,"2022":101914,"2023":100593,"2024":99420,"2025":98418},"Dąbrowa Górnicza":{"2014":123376,"2015":122712,"2016":121802,"2017":121121,"2018":120259,"2019":119373,"2020":117257,"2021":115955,"2022":114765,"2023":113460,"2024":112408,"2025":111309},"Gliwice":{"2014":184415,"2015":183392,"2016":182156,"2017":181309,"2018":179806,"2019":178603,"2020":174581,"2021":172628,"2022":171023,"2023":169915,"2024":168248,"2025":166942},"Katowice":{"2014":301834,"2015":299910,"2016":298111,"2017":296262,"2018":294510,"2019":292774,"2020":286369,"2021":282755,"2022":280190,"2023":279190,"2024":278885,"2025":277415},"Mysłowice":{"2014":75037,"2015":74851,"2016":74592,"2017":74647,"2018":74586,"2019":74618,"2020":72587,"2021":72124,"2022":71643,"2023":71280,"2024":70741,"2025":70160},"Piekary Śląskie":{"2014":56755,"2015":56374,"2016":55954,"2017":55652,"2018":55299,"2019":55030,"2020":53168,"2021":52699,"2022":52137,"2023":51707,"2024":51373,"2025":51030},"Ruda Śląska":{"2014":140669,"2015":139844,"2016":139125,"2017":138578,"2018":138000,"2019":137360,"2020":134169,"2021":132766,"2022":131532,"2023":130302,"2024":128793,"2025":127601},"Siemianowice Śląskie":{"2014":68634,"2015":68231,"2016":67905,"2017":67523,"2018":67154,"2019":66841,"2020":64935,"2021":64365,"2022":63892,"2023":63401,"2024":62817,"2025":62311},"Sosnowiec":{"2014":209274,"2015":207381,"2016":205873,"2017":204013,"2018":202036,"2019":199974,"2020":194438,"2021":191676,"2022":189178,"2023":187115,"2024":184988,"2025":182971},"Świętochłowice":{"2014":51494,"2015":50970,"2016":50644,"2017":50385,"2018":50012,"2019":49557,"2020":46645,"2021":46112,"2022":45795,"2023":45434,"2024":45021,"2025":44621},"Tychy":{"2014":128621,"2015":128444,"2016":128351,"2017":128211,"2018":127831,"2019":127590,"2020":125223,"2021":124139,"2022":123105,"2023":122045,"2024":121063,"2025":120081},"Zabrze":{"2014":177188,"2015":176327,"2016":175459,"2017":174349,"2018":173374,"2019":172360,"2020":158923,"2021":156935,"2022":155430,"2023":153838,"2024":152461,"2025":150780}};
  Object.assign(base,{"Częstochowa":{"2016":226225,"2017":224376,"2018":222292,"2019":220433,"2020":213942,"2021":210773,"2022":208282,"2023":205969,"2024":203615,"2025":201439},"Bielsko-Biała":{"2016":172030,"2017":171505,"2018":171259,"2019":170663,"2020":169553,"2021":168106,"2022":166765,"2023":165766,"2024":164318,"2025":163164},"częstochowski":{"2016":135611,"2017":135227,"2018":134919,"2019":134555,"2020":133352,"2021":132529,"2022":132009,"2023":131569,"2024":131042,"2025":130415}});
+ Object.assign(base,{"będziński":{"2025":142556},"bielski":{"2025":165607},"cieszyński":{"2025":172899},"gliwicki":{"2025":112687},"kłobucki":{"2025":80836},"lubliniecki":{"2025":73974},"mikołowski":{"2025":99980},"myszkowski":{"2025":66492},"pszczyński":{"2025":110561},"raciborski":{"2025":97995},"rybnicki":{"2025":76118},"tarnogórski":{"2025":138341},"bieruńsko-lędziński":{"2025":59272},"wodzisławski":{"2025":148409},"zawierciański":{"2025":109044},"żywiecki":{"2025":147341},"Jastrzębie-Zdrój":{"2025":80527},"Jaworzno":{"2025":85253},"Rybnik":{"2025":128788},"Żory":{"2025":61857}});
  const extra=["bielski", "Bielsko-Biała", "bieruńsko-lędziński", "będziński", "cieszyński", "Częstochowa", "częstochowski", "gliwicki", "Jastrzębie-Zdrój", "Jaworzno", "kłobucki", "lubliniecki", "mikołowski", "myszkowski", "pszczyński", "raciborski", "rybnicki", "Rybnik", "tarnogórski", "wodzisławski", "zawierciański", "Żory", "żywiecki"];
 const key='wup_demografia_2014_2025_v93';
 let imported={};try{imported=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
-const getSeries=()=>{const out={...base};for(const [name,row] of Object.entries(imported))if(row&&typeof row==='object')out[name]={...(out[name]||{}),...row};return out};
+const getSeries=()=>{const out={...base};for(const [name,row] of Object.entries(imported))if(row&&typeof row==='object')out[name]={...(out[name]||{}),...row,'2025':base[name]?.['2025']??row['2025']};return out};
 const fmt=n=>new Intl.NumberFormat('pl-PL').format(n);
 const el=id=>document.getElementById(id);
 function init(){
@@ -4923,13 +4924,26 @@ function init(){
  select.innerHTML='<option value="">Wybierz powiat lub miasto na prawach powiatu</option>' + names.map(n=>'<option value="'+n+'">'+n+'</option>').join('');
  const source=el('demogV93Sources');
  const coverageTitle=document.querySelector('#demogCountyCard .demogMiniHead>span');
- const updateCoverageTitle=()=>{const count=Object.values(getSeries()).filter(row=>row&&Object.keys(row).filter(y=>Number(y)>=2014&&Number(y)<=2025).length>=2).length;if(coverageTitle)coverageTitle.textContent=count+' z 36 jednostek z zapisanymi danymi historycznymi · wybór 36';};
+ const updateCoverageTitle=()=>{const rows=Object.values(getSeries());const current=rows.filter(row=>Number.isFinite(Number(row?.['2025']))).length;const history=rows.filter(row=>row&&Object.keys(row).filter(y=>Number(y)>=2014&&Number(y)<=2025&&Number.isFinite(Number(row[y]))).length>=2).length;if(coverageTitle)coverageTitle.textContent=current+' z 36 jednostek z liczbą ludności za 2025 r. · '+history+' z historią (co najmniej 2 lata)';};
  updateCoverageTitle();
  function clear(name){el('demogCurrent').textContent='—';el('demogDiff').textContent='—';el('demogPercent').textContent='—';chart.replaceChildren();chart.setAttribute('aria-label','Brak danych dla '+name);el('demogRange').textContent='Brak danych';const label=el('demogDiff')?.previousElementSibling;if(label)label.textContent='Zmiana w okresie'}
  function render(){
   const name=select.value,entry=getSeries()[name];const years=Array.from({length:12},(_,i)=>2014+i);
   const available=years.filter(y=>Number.isFinite(Number(entry?.[y]))&&entry?.[y]!==undefined&&entry?.[y]!==null);
-  if(available.length<2){clear(name||'wybranej jednostki');coverage.textContent=name?'Brak zapisanego szeregu ludności dla '+name+' w bieżącej paczce offline. GUS publikuje dane powiatowe w BDL; potrzebne jest ich zweryfikowane pobranie, bez szacowania z wykresów.':'Wybierz jednostkę, aby wyświetlić wykres.';return}
+  if(available.length<2){
+   clear(name||'wybranej jednostki');
+   if(available.length===1){
+     const yr=available[0],value=Number(entry[yr]);
+     el('demogCurrent').textContent=fmt(value);
+     el('demogRange').textContent=String(yr);
+     const changeLabel=el('demogDiff')?.previousElementSibling;
+     if(changeLabel)changeLabel.textContent='Zmiana (brak historii)';
+     chart.innerHTML='<line x1="48" y1="155" x2="596" y2="155" stroke="#d9e2ee"/><circle cx="320" cy="100" r="6" fill="#24558e"><title>'+yr+': '+fmt(value)+' osób</title></circle><text x="320" y="83" text-anchor="middle" font-size="18" fill="#24558e" font-weight="700">'+fmt(value)+' mieszkańców</text><text x="320" y="179" text-anchor="middle" font-size="13" fill="#526984">'+yr+'</text>';
+     chart.setAttribute('aria-label','Ludność '+name+' w '+yr+': '+fmt(value)+' osób; brak danych historycznych do obliczenia zmiany');
+     coverage.textContent='Stan na 31.12.'+yr+' r. (GUS / BDL). Brak zweryfikowanych wartości z wcześniejszych lat - nie obliczamy zmiany ani nie rysujemy sztucznego trendu.';
+   }else coverage.textContent=name?'Brak zweryfikowanych danych ludności dla '+name+'.':'Wybierz jednostkę, aby wyświetlić wykres.';
+   return;
+  }
   const firstYear=available[0],lastYear=available[available.length-1];
   const rangeLabel=el('demogRange');if(rangeLabel)rangeLabel.textContent=firstYear+'–'+lastYear;
   const changeLabel=el('demogDiff')?.previousElementSibling;if(changeLabel)changeLabel.textContent='Zmiana od '+firstYear+' r.';
@@ -4961,9 +4975,9 @@ function init(){
   select.innerHTML='<option value="">Wybierz powiat lub miasto na prawach powiatu</option>'+names.map(n=>'<option value="'+n+'">'+n+'</option>').join('');
   if(county?.value&&names.includes(county.value))select.value=county.value;
   else if(!select.value)select.value=names.includes('Katowice')?'Katowice':Object.keys(base)[0];
-  updateCoverageTitle();source.textContent='Dane zapisane w aplikacji: '+d.coverage_counties+'/36 jednostek. Źródła: InfoGZM oraz GeoTaktyka na podstawie GUS BDL (2016–2025). Bez importowania plików.';
+  updateCoverageTitle();source.textContent='Dane na 31.12.2025: 36/36 jednostek (GUS / BDL); wcześniejsze serie: InfoGZM oraz GeoTaktyka / GUS BDL. Bez szacowania brakujących lat.';
   render();
- }).catch(()=>{source.textContent='Offline: dane ludności 16 jednostek są wbudowane w aplikację. Nie potrzebujesz importować żadnych plików.'});
+ }).catch(()=>{source.textContent='Offline: liczba ludności za 2025 r. dla wszystkich 36 jednostek jest wbudowana; wcześniejsze lata dostępne dla części jednostek. Źródło: GUS / BDL.'});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();</script>
