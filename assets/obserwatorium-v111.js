@@ -1,10 +1,10 @@
 (() => {
 'use strict';
 const $ = id => document.getElementById(id);
-const groups={barometr:[['map','Mapa i profil'],['jobs','Zawody'],['trends','Trendy i historia'],['rankings','Rankingi']],bezrobocie:[['unemployment','Struktura i historia']],gospodarka:[['gus','Gospodarka i BAEL']],demografia:[['demography','Ludność i migracje']]};
-const labels={barometr:'Barometr Zawodów',bezrobocie:'Bezrobocie',gospodarka:'Sytuacja gospodarcza',demografia:'Demografia'};
-const route={map:'barometr',jobs:'barometr',trends:'barometr',rankings:'barometr',unemployment:'bezrobocie',gus:'gospodarka',demography:'demografia',sources:'sources'};
-const viewLabel={map:'Mapa i profil powiatu',jobs:'Analiza zawodów',trends:'Trendy i archiwum',rankings:'Rankingi',unemployment:'Bezrobocie',gus:'Sytuacja gospodarcza',demography:'Demografia'};
+const groups={barometr:[['map','Mapa i profil'],['jobs','Zawody'],['trends','Trendy i historia'],['rankings','Rankingi']],bezrobocie:[['unemployment','Struktura i historia']],cudzoziemcy:[['foreigners','Dane GUS i PUP']],gospodarka:[['gus','Gospodarka, REGON i BAEL']],demografia:[['demography','Ludność i migracje']]};
+const labels={barometr:'Barometr Zawodów',bezrobocie:'Bezrobocie',cudzoziemcy:'Cudzoziemcy',gospodarka:'Sytuacja gospodarcza',demografia:'Demografia'};
+const route={map:'barometr',jobs:'barometr',trends:'barometr',rankings:'barometr',unemployment:'bezrobocie',foreigners:'cudzoziemcy',gus:'gospodarka',demography:'demografia',sources:'sources'};
+const viewLabel={map:'Mapa i profil powiatu',jobs:'Analiza zawodów',trends:'Trendy i archiwum',rankings:'Rankingi',unemployment:'Bezrobocie',foreigners:'Cudzoziemcy',gus:'Sytuacja gospodarcza',demography:'Demografia'};
 const storeKey='obserwatorium-2027-prezentacja-v1'; let basket=[];
 try{const loaded=JSON.parse(localStorage.getItem(storeKey)||'[]');if(Array.isArray(loaded)){
  const uniq=new Set();basket=loaded.filter(x=>{if(!x||!x.id||!x.title||!x.unit)return false;
@@ -23,8 +23,9 @@ const fineSelectors={
  jobs:['#occupationProfileSection','#atlasAnalysis .analyticSignal','#atlasAnalysis .compareCard','#atlasAnalysis .insightCard','#atlasAnalysis .compareModule','#compareSection'],
  trends:['#trendSection','#historyArchive'],
  rankings:['#atlasRankings .rank'],
- unemployment:['#registeredUnemploymentModule section.gusCard','#pupStructureModule','#pupStructureModule .pupGrid > *','#pupStructureModule .pupTrendCard','#pupStructureModule .pupHistoryCard','#uk2026Overview','#uk2026CountyPanel'],
- gus:['#regionalPulse','#regionalNationalChart','#regionalHistoryPanel','#gusModule section.gusCard','#foreign2025Overview','#foreign2025CountyInfo'],demography:['#demographyModule .demographyReportCard','#demographyModule .gusCard']
+ unemployment:['#registeredUnemploymentModule section.gusCard','#pupStructureModule','#pupStructureModule .pupGrid > *','#pupStructureModule .pupTrendCard','#pupStructureModule .pupHistoryCard'],
+ foreigners:['#foreign2025Overview','#foreign2025CountyInfo','#uk2026Overview','#uk2026CountyPanel'],
+ gus:['#regionalPulse','#regionalNationalChart','#regionalHistoryPanel','#gusModule section.gusCard'],demography:['#demographyModule .demographyReportCard','#demographyModule .gusCard']
 };
 function fineNodes(pane){
  const found=[];const seen=new Set();
@@ -424,22 +425,22 @@ const V120_CHARTS=[
  ['countyUnempChart','unemployment','Bezrobocie w powiatach – wykres'],
  ['gusUnempChart','unemployment','Bezrobocie rejestrowane – Śląskie i Polska'],
  ['wupUnemploymentChart','unemployment','Szczegółowe dane WUP – bezrobocie'],
- ['uk2026Chart','unemployment','Obywatele Ukrainy – zmiany w 2026'],
- ['uk2026CountyRank','unemployment','Obywatele Ukrainy – ranking powiatów'],
- ['uk2026Jobs','unemployment','Obywatele Ukrainy – zawody'],
- ['uk2026Sectors','unemployment','Obywatele Ukrainy – branże PKD'],
- ['uk2026Contracts','unemployment','Obywatele Ukrainy – rodzaje umów'],
- ['uk2026Reasons','unemployment','Obywatele Ukrainy – powody wyrejestrowań'],
+ ['uk2026Chart','foreigners','Obywatele Ukrainy – zmiany w 2026'],
+ ['uk2026CountyRank','foreigners','Obywatele Ukrainy – ranking powiatów'],
+ ['uk2026Jobs','foreigners','Obywatele Ukrainy – zawody'],
+ ['uk2026Sectors','foreigners','Obywatele Ukrainy – branże PKD'],
+ ['uk2026Contracts','foreigners','Obywatele Ukrainy – rodzaje umów'],
+ ['uk2026Reasons','foreigners','Obywatele Ukrainy – powody wyrejestrowań'],
  ['gusBaelChart','gus','BAEL – Śląskie na tle Polski'],
  ['baelQuarterSummary','gus','Liczba osób według BAEL – I vs II kw. 2026'],
  ['gusRegonChart','gus','Podmioty gospodarcze REGON'],
  ['demogLineChart','demography','Demografia powiatowa – ludność'],
  ['regionalNationalChart','gus','Śląskie na tle Polski – dynamika'],
  ['regionalHistoryPanel','gus','Historia wskaźnika gospodarczego'],
- ['foreign2025Monthly','gus','Cudzoziemcy - zmiany miesięczne 2025'],
- ['foreign2025Nationalities','gus','Cudzoziemcy - obywatelstwa 2025'],
- ['foreign2025Gender','gus','Cudzoziemcy - podział według płci 2025'],
- ['foreign2025County','gus','Cudzoziemcy - ranking powiatów 2025']
+ ['foreign2025Monthly','foreigners','Cudzoziemcy - zmiany miesięczne 2025'],
+ ['foreign2025Nationalities','foreigners','Cudzoziemcy - obywatelstwa 2025'],
+ ['foreign2025Gender','foreigners','Cudzoziemcy - podział według płci 2025'],
+ ['foreign2025County','foreigners','Cudzoziemcy - ranking powiatów 2025']
 ];
 function v120Visible(node){
  if(!node||node.hidden)return false;
@@ -873,7 +874,7 @@ async function svgPng(svgString){
 }
 let activeGroup='barometr';let activeView='map';
 function chooseGroup(group){if(!groups[group])return;const possible=groups[group].map(x=>x[0]);const target=possible.includes(activeView)?activeView:possible[0];chooseView(target)}
-function chooseView(view){const group=route[view];if(!group||group==='sources')return;activeView=view;activeGroup=group;document.body.dataset.mainArea=group;document.querySelectorAll('[data-v111-group]').forEach(b=>{const yes=b.dataset.v111Group===group;b.classList.toggle('active',yes);b.setAttribute('aria-selected',String(yes))});const sub=$('v111Subnav');sub.replaceChildren();sub.hidden=groups[group].length===1;for(const [id,label] of groups[group]){const b=document.createElement('button');b.type='button';b.textContent=label;b.className=id===view?'selected':'';b.addEventListener('click',()=>chooseView(id));sub.append(b)}const original=document.querySelector('.compactNavButton[data-view="'+view+'"]');original?.click();if(group==='gospodarka'||group==='demografia')$('filterStudio').hidden=true;updateCounter()}
+function chooseView(view){const group=route[view];if(!group||group==='sources')return;activeView=view;activeGroup=group;document.body.dataset.mainArea=group;document.querySelectorAll('[data-v111-group]').forEach(b=>{const yes=b.dataset.v111Group===group;b.classList.toggle('active',yes);b.setAttribute('aria-selected',String(yes))});const sub=$('v111Subnav');sub.replaceChildren();sub.hidden=groups[group].length===1;for(const [id,label] of groups[group]){const b=document.createElement('button');b.type='button';b.textContent=label;b.className=id===view?'selected':'';b.addEventListener('click',()=>chooseView(id));sub.append(b)}const original=document.querySelector('.compactNavButton[data-view="'+view+'"]');original?.click();if(group==='gospodarka'||group==='cudzoziemcy'||group==='demografia')$('filterStudio').hidden=true;updateCounter()}
 function updateCounter(){const b=$('v111BasketButton');if(b)b.textContent=(innerWidth<=767?'Wybrane (':'Moje materiały (')+basket.length+')';const badge=$('v129SelectedCount');if(badge)badge.textContent=basket.length;}
 function drawBasket(){compactBasket();const clearButton=$('v127ClearBasket');if(clearButton)clearButton.disabled=!basket.length;const list=$('v111BasketList');if(!list)return;list.replaceChildren();if(!basket.length){const p=document.createElement('p');p.textContent='Nie wybrano jeszcze elementów. Zaznacz analizy przy wykresach i panelach, a następnie pobierz PowerPoint lub Word.';list.append(p);return}basket.forEach((item,i)=>{const row=document.createElement('div');row.className='v111BasketRow';const cb=document.createElement('input');cb.type='checkbox';cb.checked=item.included!==false;cb.setAttribute('aria-label','Uwzględnij '+item.title);cb.addEventListener('change',()=>{item.included=cb.checked;save()});const info=document.createElement('div');const title=document.createElement('strong');title.textContent=item.title;const meta=document.createElement('small');meta.textContent=item.unit+' • '+item.period+' • '+(viewLabel[item.view]||item.view);info.append(title,meta);const actions=document.createElement('div');actions.className='v111BasketRowActions';for(const [label,offset] of [['↑',-1],['↓',1]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.title='Zmień kolejność';b.disabled=i+offset<0||i+offset>=basket.length;b.onclick=()=>{[basket[i],basket[i+offset]]=[basket[i+offset],basket[i]];save()};actions.append(b)}const remove=document.createElement('button');remove.type='button';remove.textContent='Usuń';remove.onclick=()=>{basket.splice(i,1);save()};actions.append(remove);row.append(cb,info,actions);list.append(row)})}
 async function downloadPptx(){const selected=basket.filter(x=>x.included!==false);if(!selected.length){alert('Zaznacz co najmniej jeden element.');return}const Constructor=window.PptxGenJS||window.pptxgen;if(!Constructor){alert('Biblioteka PowerPoint nie została załadowana. Możesz pobrać listę jako JSON.');return}const pptx=new Constructor();pptx.layout='LAYOUT_WIDE';pptx.author='Obserwatorium Rynku Pracy';pptx.subject='Wybrane analizy rynku pracy';pptx.title='Obserwatorium — prezentacja użytkownika';const addText=(slide,txt,x,y,w,h,size=14,opts={})=>slide.addText(txt,{x,y,w,h,fontFace:'Aptos',fontSize:size,color:'1F334E',margin:0,breakLine:false,...opts});let slide=pptx.addSlide();slide.background={color:'F6F8FC'};addText(slide,'OBSERWATORIUM RYNKU PRACY',.8,1.2,11,.4,18,{bold:true,color:'5F718A'});addText(slide,'Wybrane dane i analizy',.8,2,11,.9,34,{bold:true});addText(slide,selected.length+' elementów • '+new Date().toLocaleDateString('pl-PL'),.8,3.2,11,.5,16);for(const item of selected){slide=pptx.addSlide();slide.background={color:'FFFFFF'};addText(slide,item.title,.65,.44,11.8,.75,25,{bold:true});addText(slide,item.unit+' • '+item.period,.65,1.22,11,.36,13,{color:'64748B'});const png=item.png||(await svgPng(item.svg));
@@ -897,15 +898,15 @@ const line=document.createElement('div');line.id='v111Subnav';line.className='v1
 const footer=document.createElement('footer');footer.className='v111Footer';footer.innerHTML='<button type="button" id="v111Sources">Źródła danych i metodologia ↓</button>';document.querySelector('.studioContent').append(footer);$('v111Sources').addEventListener('click',()=>{document.querySelector('.compactNavButton[data-view="sources"]')?.click();$('compact-sources').hidden=false;$('compact-sources').scrollIntoView({behavior:'smooth'});});
 const dlg=document.createElement('dialog');dlg.id='v111Basket';dlg.className='v111Dialog';dlg.innerHTML='<div class="v111DialogHead"><div><span>KOMPOZYCJA MATERIAŁÓW</span><h2>Moje materiały <span class="v129SelectedCount" id="v129SelectedCount" aria-label="Liczba zapisanych analiz">0</span></h2><p>Wybrane raz analizy wykorzystasz w prezentacji PowerPoint i raporcie Word. Powiat, okres i dane pozostają zapisane.</p></div><button type="button" id="v111Close" aria-label="Zamknij">×</button></div><div id="v111BasketList"></div><div class="v111DialogFoot v129DialogFoot"><div class="v129ExportHeading"><strong>Wybierz format materiału</strong><span>Te same analizy, dwa sposoby prezentacji danych.</span></div><div class="v129ExportGrid" role="group" aria-label="Format pobieranego materiału"><button type="button" id="v111Generate" class="v129ExportCard v129PptCard">PowerPoint</button><button type="button" id="v128GenerateDocx" class="v128WordButton v129ExportCard v129DocxCard">Word DOCX</button></div><div class="v129FooterActions"><button type="button" id="v127ClearBasket" class="v127ClearBasket" title="Usuń wszystkie zaznaczone analizy">Wyczyść wszystkie zaznaczenia</button><button type="button" id="v111Json">Zapisz wybór JSON</button></div></div>';document.body.append(dlg);$('v111BasketButton').onclick=()=>{drawBasket();dlg.showModal()};$('v111Close').onclick=()=>dlg.close();dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});$('v127ClearBasket').onclick=()=>{if(!basket.length)return;if(!window.confirm('Usunąć wszystkie '+basket.length+' zaznaczone analizy z Moich materiałów?'))return;basket.splice(0,basket.length);save();};$('v111Json').onclick=downloadJson;$('v111Generate').onclick=()=>window.OBS_DECK_V118?window.OBS_DECK_V118(basket):downloadPptx();$('v128GenerateDocx').onclick=()=>window.OBS_WORD_V128?window.OBS_WORD_V128(basket):alert('Moduł Word nie został załadowany. Otwórz pełną paczkę aplikacji.');
 const legacy=document.querySelectorAll('.mobileBottomNav,.mobileMoreSheet');legacy.forEach(x=>x.setAttribute('data-v111-legacy','1'));
-const mobileNav=document.createElement('nav');mobileNav.className='v111MobileNav';mobileNav.setAttribute('aria-label','Główne obszary');for(const group of Object.keys(groups)){const b=document.createElement('button');b.type='button';b.textContent=({barometr:'Barometr',bezrobocie:'Bezrobocie',gospodarka:'Gospodarka',demografia:'Demografia'})[group]||labels[group];b.dataset.v111Mobile=group;b.onclick=()=>chooseGroup(group);mobileNav.append(b)}document.body.append(mobileNav);
+const mobileNav=document.createElement('nav');mobileNav.className='v111MobileNav';mobileNav.setAttribute('aria-label','Główne obszary');for(const group of Object.keys(groups)){const b=document.createElement('button');b.type='button';b.textContent=({barometr:'Barometr',bezrobocie:'Bezrobocie',cudzoziemcy:'Cudzoziemcy',gospodarka:'Gospodarka',demografia:'Demografia'})[group]||labels[group];b.dataset.v111Mobile=group;b.onclick=()=>chooseGroup(group);mobileNav.append(b)}document.body.append(mobileNav);
 const observed=new MutationObserver(()=>{const sel=document.querySelector('.compactNavButton.active')?.dataset.view;if(sel&&route[sel]&&route[sel]!=='sources'&&sel!==activeView)chooseView(sel);});observed.observe(original,{attributes:true,subtree:true,attributeFilter:['class']});
 chooseView('map');addFineButtons();updateCounter();drawBasket();window.addEventListener('pageshow',()=>{addFineButtons();updateCounter();syncPresentationPicks()});
 document.addEventListener('change',e=>{if(e.target.closest('.compactPane')||e.target.id==='countySelect'||e.target.id==='occupationSelect')requestAnimationFrame(syncPresentationPicks)},true);
-document.addEventListener('click',e=>{if(e.target.closest('[data-pup-group],[data-pup-index],[data-mobile-chart],[data-mode],[data-cu-view],.trendBtn,.trendModeBtn,.gusChartSwitch button,.jobStatusTab'))setTimeout(syncPresentationPicks,60)},true);
+document.addEventListener('click',e=>{if(e.target.closest('[data-pup-group],[data-pup-index],[data-mobile-chart],[data-mode],[data-cu-view],.trendBtn,.trendModeBtn,.gusChartSwitch button,.jobStatusTab,.v174ForeignNav button'))setTimeout(syncPresentationPicks,60)},true);
 const observer=new MutationObserver(records=>{
  if(records.length&&records.every(record=>{const node=record.target.nodeType===1?record.target:record.target.parentElement;return node?.closest?.('.v123ChartFooter,.v114ActionRow,.v123MapFooter,.v119Lists,.v120ChartPick,.v113Pick,.v111Pick');}))return;
  clearTimeout(window.__v113PickTimer);window.__v113PickTimer=setTimeout(addFineButtons,250)
-});for(const id of ['compact-unemployment','compact-gus','compact-demography','compact-trends','compact-jobs','compact-rankings','compact-map']){const n=$(id);if(n)observer.observe(n,{childList:true,subtree:true})}window.OBSERWATORIUM_PRESENTATION={get items(){return basket}};
+});for(const id of ['compact-unemployment','compact-foreigners','compact-gus','compact-demography','compact-trends','compact-jobs','compact-rankings','compact-map']){const n=$(id);if(n)observer.observe(n,{childList:true,subtree:true})}window.OBSERWATORIUM_PRESENTATION={get items(){return basket}};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

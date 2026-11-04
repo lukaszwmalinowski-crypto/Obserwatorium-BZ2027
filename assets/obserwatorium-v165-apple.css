@@ -159,3 +159,210 @@ html body.compactUI .compactPane[data-view] :is(.regionFrame,.sectionFrame,.data
 .foreign25Root .foreign25Meta a{color:#246da8;text-decoration:underline}
 @media(max-width:900px){.foreign25Root .foreign25Grid{grid-template-columns:1fr}.foreign25Root .foreign25Kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.foreign25Root .foreign25Kpis,.foreign25Root .foreign25Gender{grid-template-columns:1fr}.foreign25Root .foreign25Content{padding:8px}}
+
+/* v174 - navigation and ordered section headings, keeping Apple look */
+@media(max-width:767px){
+ html body.compactUI .v111MobileNav{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:2px!important}
+ html body.compactUI .v111MobileNav button{font-size:10px!important;min-width:0!important;padding:5px 1px!important;letter-spacing:-.025em}
+}
+html body.compactUI .v174ChapterTitle{margin:17px 4px 12px;color:#1d1d1f;font-size:17px;line-height:1.35;font-weight:650;letter-spacing:-.02em}
+html body.compactUI .v174ChapterTitle small{display:block;color:#6e6e73;font-size:12px;font-weight:450;letter-spacing:0;line-height:1.5;margin-top:3px}
+html body.compactUI .v174ForeignIntro{margin:0 0 17px;color:#6e6e73;line-height:1.5;font-size:13px;max-width:880px}
+html body.compactUI .v174ForeignNav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px;}
+html body.compactUI .v174ForeignNav button{background:#f0f0f3!important;border:1px solid #e5e5e9!important;color:#3a3a3c!important;border-radius:12px!important;padding:11px 18px!important;font-size:13px!important;font-weight:600!important;cursor:pointer;}
+html body.compactUI .v174ForeignNav button[aria-selected="true"]{background:#fff!important;border-color:#b9d8ff!important;color:#0066cb!important;box-shadow:0 1px 5px rgba(0,0,0,.08)!important}
+html body.compactUI #compact-foreigners .foreign25Content{gap:16px}
+html body.compactUI #compact-foreigners .foreign25Grid{align-items:start}
+html body.compactUI #compact-foreigners .v174SectionHeading{font-size:14px;line-height:1.4;font-weight:650;letter-spacing:-.01em;color:#1d1d1f;margin:8px 4px 2px}
+html body.compactUI #compact-foreigners>.historyArchive{margin-bottom:16px}
+html body.compactUI #compact-foreigners .foreign25Panel{background:#fff;border-color:#e5e5e9;color:#1d1d1f}
+@media(max-width:767px){html body.compactUI .v174ForeignNav{display:grid;grid-template-columns:1fr 1fr}html body.compactUI .v174ForeignNav button{padding:10px 6px!important;font-size:11.5px!important}}
+
+html body.compactUI #compact-foreigners > .historyArchive[hidden]{display:none!important}
+
+
+/* v175 - Zakładka Cudzoziemcy: pełna szerokość wykresu obywatelstw.
+   Zakres ograniczony do tej sekcji; pozostałe widoki bez zmian. */
+html body.compactUI #compact-foreigners #foreign2025StructureGroup {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+html body.compactUI #compact-foreigners #foreign2025StructureGroup > .foreign25Panel {
+  width:100%;max-width:none;box-sizing:border-box;
+}
+
+
+/* v177 - Cudzoziemcy: wspólna typografia Apple, modułowa siatka bez dublowania kart.
+   Dotyczy wyłącznie zakładki Cudzoziemcy. */
+@media screen {
+html body.compactUI #compact-foreigners {
+ --f-ink:var(--a-ink,#1d1d1f);--f-muted:var(--a-muted,#6e6e73);
+ --f-line:rgba(34,62,95,.10);--f-gap:14px;
+ font-family:var(--a-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif)!important;
+}
+html body.compactUI #compact-foreigners .v174ForeignIntro{
+ max-width:100%;margin:0 0 12px;padding:11px 15px;border-radius:12px;
+ font-size:13px;line-height:1.55;background:#edf4ff;color:#3b5873;
+ border:1px solid #d9e8fa;
+}
+html body.compactUI #compact-foreigners .v174ForeignNav{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 16px;
+ padding:5px;border-radius:15px;background:#ececf1;
+}
+html body.compactUI #compact-foreigners .v174ForeignNav button{
+ font:600 14px/1.35 var(--a-font,-apple-system,sans-serif)!important;min-width:0;
+ text-align:center;padding:12px!important;border:0!important;border-radius:11px!important;
+ color:#474c56!important;background:transparent!important;
+}
+html body.compactUI #compact-foreigners .v174ForeignNav button[aria-selected="true"]{
+ color:#11579c!important;background:#fff!important;
+ box-shadow:0 2px 7px rgba(30,47,76,.12)!important;
+}
+html body.compactUI #compact-foreigners>.historyArchive{margin:0!important;min-width:0}
+html body.compactUI #compact-foreigners>.historyArchive>summary{margin-bottom:12px}
+html body.compactUI #compact-foreigners .foreign25Content,
+html body.compactUI #compact-foreigners .countyUWrap{
+ padding:0!important;margin:0!important;display:grid!important;gap:var(--f-gap)!important;
+ align-items:stretch;min-width:0;
+}
+html body.compactUI #compact-foreigners .foreign25Content{grid-template-columns:minmax(0,1fr)!important}
+html body.compactUI #compact-foreigners .foreign25Grid{gap:var(--f-gap)!important;align-items:stretch!important;min-width:0}
+html body.compactUI #compact-foreigners #foreign2025TrendGroup{
+ display:grid!important;grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr)!important;
+}
+html body.compactUI #compact-foreigners #foreign2025StructureGroup{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+html body.compactUI #compact-foreigners #foreign2025CountyGroup{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+}
+html body.compactUI #compact-foreigners .foreign25Panel,
+html body.compactUI #compact-foreigners #uk2026Section :is(.countyUSnapshot,.countyUPanel){
+ background:#fff!important;color:var(--f-ink)!important;
+ border:1px solid var(--f-line)!important;border-radius:18px!important;
+ box-shadow:0 2px 16px rgba(28,54,90,.055)!important;
+ margin:0!important;padding:18px!important;min-width:0;min-height:0;
+ box-sizing:border-box;
+}
+html body.compactUI #compact-foreigners .foreign25Panel,
+html body.compactUI #compact-foreigners #uk2026Section .countyUPanel{
+ display:flex;flex-direction:column;gap:0;justify-content:flex-start;
+}
+html body.compactUI #compact-foreigners .foreign25Panel h3,
+html body.compactUI #compact-foreigners #uk2026Section .countyUPanel>b,
+html body.compactUI #compact-foreigners #uk2026Section .countyUSnapshotHead>b{
+ margin:0 0 8px!important;font-size:17px!important;font-weight:650!important;
+ letter-spacing:-.02em!important;line-height:1.32!important;color:#1d1d1f!important;
+}
+html body.compactUI #compact-foreigners .foreign25Panel>p,
+html body.compactUI #compact-foreigners .countyUFoot,
+html body.compactUI #compact-foreigners .countyUSnapshotNote,
+html body.compactUI #compact-foreigners .countyUIntro{
+ font-size:12.5px!important;line-height:1.55!important;color:#617184!important;
+}
+html body.compactUI #compact-foreigners .foreign25Kpis,
+html body.compactUI #compact-foreigners #uk2026Section .countyUSnapshotMetrics{
+ gap:10px!important;
+}
+html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+html body.compactUI #compact-foreigners .foreign25Kpis>div,
+html body.compactUI #compact-foreigners .foreign25Gender>div,
+html body.compactUI #compact-foreigners .countyUSnapshotMetric{
+ background:#f0f5fd!important;border:1px solid #e0e8f5!important;
+ border-radius:14px!important;padding:14px!important;box-shadow:none!important;
+}
+html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis>div:nth-child(1){background:#e9f3ff!important;border-color:#cbdffd!important}
+html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis>div:nth-child(2){background:#e8f8f2!important;border-color:#ccebdc!important}
+html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis>div:nth-child(3){background:#f2edff!important;border-color:#dfd4fa!important}
+html body.compactUI #compact-foreigners .foreign25Kpis strong,
+html body.compactUI #compact-foreigners .foreign25Gender strong,
+html body.compactUI #compact-foreigners .countyUSnapshotMetric strong{
+ font-size:clamp(20px,2.2vw,28px)!important;color:#214b75!important;font-weight:700!important;letter-spacing:-.03em;
+}
+html body.compactUI #compact-foreigners .foreign25Kpis span,
+html body.compactUI #compact-foreigners .foreign25Gender span,
+html body.compactUI #compact-foreigners .countyUSnapshotMetric span{
+ font-size:12px!important;line-height:1.4!important;color:#526983!important;
+}
+html body.compactUI #compact-foreigners #foreign2025Gender{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;align-content:start;gap:10px;
+}
+html body.compactUI #compact-foreigners #foreign2025Gender>div:first-child{background:#ecf6ff!important;border-color:#cfdfef!important}
+html body.compactUI #compact-foreigners #foreign2025Gender>div:last-child{background:#f9f0ff!important;border-color:#e9d8f6!important}
+html body.compactUI #compact-foreigners :is(.foreign25Label,.countyUField label){
+ font-size:13px!important;line-height:1.35!important;font-weight:600!important;color:#505d71!important;
+}
+html body.compactUI #compact-foreigners :is(.foreign25Select,.countyUField select){
+ width:100%;min-height:44px!important;padding:10px 12px!important;
+ font:500 14px/1.3 var(--a-font,-apple-system,sans-serif)!important;
+ border:1px solid #cbd7e6!important;border-radius:12px!important;
+ background:#fff!important;color:#23496f!important;box-shadow:none!important;
+}
+html body.compactUI #compact-foreigners .foreign25Bar,
+html body.compactUI #compact-foreigners .countyUSnapshotBar{margin:6px 0!important;gap:9px!important;font-size:12px!important;min-width:0}
+html body.compactUI #compact-foreigners .foreign25Bar strong,
+html body.compactUI #compact-foreigners .countyUSnapshotBar strong{font-size:12px!important;color:#204d7a!important}
+html body.compactUI #compact-foreigners .foreign25Bar>div,
+html body.compactUI #compact-foreigners .countyUSnapshotBar>div{height:11px!important;background:#e9eff8!important;border-radius:99px!important}
+html body.compactUI #compact-foreigners .foreign25Bar i{background:linear-gradient(90deg,#40b9b4,#177cb6)!important}
+html body.compactUI #compact-foreigners #foreign2025County .foreign25Bar i{background:linear-gradient(90deg,#8d86e4,#405db9)!important}
+html body.compactUI #compact-foreigners #uk2026CountyRank i{background:linear-gradient(90deg,#49b5a7,#19847b)!important}
+html body.compactUI #compact-foreigners #uk2026Jobs i{background:linear-gradient(90deg,#74a9f9,#3975cd)!important}
+html body.compactUI #compact-foreigners #uk2026Sectors i{background:linear-gradient(90deg,#b49ae9,#8161c7)!important}
+html body.compactUI #compact-foreigners #uk2026Contracts i{background:linear-gradient(90deg,#eec287,#ce8b45)!important}
+html body.compactUI #compact-foreigners #uk2026Reasons i{background:linear-gradient(90deg,#edb0b6,#cf6686)!important}
+html body.compactUI #compact-foreigners #foreign2025County{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 22px;
+}
+html body.compactUI #compact-foreigners #uk2026Section .countyUWrap{
+ grid-template-columns:repeat(12,minmax(0,1fr))!important;
+}
+html body.compactUI #compact-foreigners #uk2026Section .countyUIntro{grid-column:1/-1;margin:0!important;padding:12px 15px!important;border-radius:12px!important;background:#edf4ff!important;border:1px solid #dce7f6!important}
+html body.compactUI #compact-foreigners #uk2026Overview{grid-column:1/-1}
+html body.compactUI #compact-foreigners #uk2026ChartPanel{grid-column:span 7}
+html body.compactUI #compact-foreigners #uk2026CountyPanel{grid-column:span 5}
+html body.compactUI #compact-foreigners :is(#uk2026CountyRankPanel,#uk2026JobsPanel,#uk2026SectorsPanel,#uk2026ContractsPanel){grid-column:span 6}
+html body.compactUI #compact-foreigners #uk2026ReasonsPanel{grid-column:1/-1}
+html body.compactUI #compact-foreigners #uk2026Section .countyUSnapshotMetrics{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+html body.compactUI #compact-foreigners #uk2026CountyCards{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html body.compactUI #compact-foreigners #uk2026Overview .countyUSnapshotMetric:nth-child(1){background:#e9f3ff!important;border-color:#cedef6!important}
+html body.compactUI #compact-foreigners #uk2026Overview .countyUSnapshotMetric:nth-child(2){background:#f3ecff!important;border-color:#e0d7f6!important}
+html body.compactUI #compact-foreigners #uk2026Overview .countyUSnapshotMetric:nth-child(3){background:#e8f8f2!important;border-color:#cfebdc!important}
+html body.compactUI #compact-foreigners #uk2026Overview .countyUSnapshotMetric:nth-child(4){background:#fff1e6!important;border-color:#f2dfcf!important}
+html body.compactUI #compact-foreigners #uk2026Section .countyUChart{
+ width:100%;height:auto!important;max-width:100%!important;min-height:0!important;
+ border:0!important;border-radius:12px!important;
+}
+html body.compactUI #compact-foreigners #uk2026Reasons{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 22px;
+}
+html body.compactUI #compact-foreigners .v177SourceDetails{
+ grid-column:1/-1;margin:0;background:#f6f8fb;border:1px solid #e4eaf2;
+ border-radius:14px;padding:0 14px;color:#50647b;font-size:12px;
+}
+html body.compactUI #compact-foreigners .v177SourceDetails>summary{
+ cursor:pointer;padding:13px 3px;font-size:13px;font-weight:600;color:#42566f;list-style:revert;
+}
+html body.compactUI #compact-foreigners .v177SourceDetails>p{padding:0 3px 13px!important;margin:0!important;font-size:12px!important;line-height:1.65!important;}
+html body.compactUI #compact-foreigners .v177SourceDetails:not([open]){min-height:0}
+html body.compactUI #compact-foreigners .v123ChartFooter{margin-top:auto!important;padding-top:11px}
+html body.compactUI #compact-foreigners .v174SectionHeading{display:none!important}
+}
+@media(max-width:980px){
+ html body.compactUI #compact-foreigners #foreign2025TrendGroup,
+ html body.compactUI #compact-foreigners #foreign2025StructureGroup{grid-template-columns:1fr!important}
+ html body.compactUI #compact-foreigners #uk2026Section .countyUWrap{grid-template-columns:1fr!important}
+ html body.compactUI #compact-foreigners #uk2026Section .countyUWrap > *{grid-column:1/-1!important}
+}
+@media(max-width:650px){
+ html body.compactUI #compact-foreigners .v174ForeignNav button{font-size:12px!important;padding:11px 6px!important}
+ html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis>div:first-child{grid-column:1/-1}
+ html body.compactUI #compact-foreigners #foreign2025County,
+ html body.compactUI #compact-foreigners #uk2026Reasons{grid-template-columns:1fr!important}
+ html body.compactUI #compact-foreigners #uk2026Section .countyUSnapshotMetrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.compactUI #compact-foreigners .foreign25Panel,
+ html body.compactUI #compact-foreigners #uk2026Section :is(.countyUPanel,.countyUSnapshot){padding:13px!important}
+ html body.compactUI #compact-foreigners #foreign2025Gender{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.compactUI #compact-foreigners #foreign2025CountyInfo .foreign25Kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.compactUI #compact-foreigners #foreign2025CountyInfo .foreign25Kpis>div:last-child{grid-column:1/-1}
+}

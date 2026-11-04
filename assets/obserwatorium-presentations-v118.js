@@ -4,7 +4,7 @@
   'use strict';
   const PALETTE={
     map:'3469AF',jobs:'C14C64',trends:'2A9075',rankings:'C14C64',
-    unemployment:'B96B2B',gus:'7964BD',demography:'26849B'
+    unemployment:'B96B2B',foreigners:'3477AC',gus:'7964BD',demography:'26849B'
   };
   const NAVY='183758',TEXT='213D5C',MUTED='63768C',LIGHT='F4F7FB',BORDER='DCE5EF',WHITE='FFFFFF';
   const WIDTH=13.333,HEIGHT=7.5;
@@ -96,6 +96,7 @@
       else {base.period='prognoza 2027';base.unit=map.mode==='balance'?'%': 'grupy zawodów';base.source='Barometr Zawodów 2027';}
       base.scope='Województwo śląskie - 36 powiatów i miast';return base;
     }
+    if(item.view==='foreigners'){base.scope=clean(item.unit||'Województwo śląskie');base.source=source;base.period=clean(stamp.period||item.period||'');base.unit=clean(stamp.unit||base.unit||'osoby / %');return base;}
     if(item.view==='unemployment'||/gusUnempChart|wupUnemploymentChart|countyUnempChart|pupBars|pupTrendChart/i.test(id)){
       base.source=/^pupBars$|^pupTrendChart$/.test(id)?'Powiatowe urzędy pracy / MRPiPS-01':'WUP Katowice / GUS - bezrobocie rejestrowane';
       const isRate=/stopa|\brate\b|stopę/i.test(title+' '+(stamp.measure||''))||item.settings?.params?.countyUMetric==='rate';
@@ -145,7 +146,7 @@
   function drawHeader(slide,pptx,title,unit,section,i,source){
     background(slide,pptx);
     const accent=PALETTE[section]||'3469AF';
-    const headerTitle=/Obywatele Ukrainy/i.test(title)?'OBYWATELE UKRAINY / RYNEK PRACY':section==='demography'?'DEMOGRAFIA / GUS':section==='gus'?'DANE GUS / BDL':section==='unemployment'?'BEZROBOCIE REJESTROWANE':(/bezroboc/i.test(title)?'BEZROBOCIE REJESTROWANE':'BAROMETR ZAWODÓW 2027');
+    const headerTitle=section==='foreigners'?(/Ukrain/i.test(title)?'OBYWATELE UKRAINY / PUP':'CUDZOZIEMCY / GUS'):section==='demography'?'DEMOGRAFIA / GUS':section==='gus'?'DANE GUS / BDL':section==='unemployment'?'BEZROBOCIE REJESTROWANE':(/bezroboc/i.test(title)?'BEZROBOCIE REJESTROWANE':'BAROMETR ZAWODÓW 2027');
     fill(slide,pptx,LAYOUT.left,LAYOUT.overline,.07,.27,accent,.01);
     txt(slide,headerTitle,LAYOUT.left+.17,LAYOUT.overline-.01,10.8,.30,10.4,{bold:true,color:accent,charSpacing:1.5});
     // v125: Keep the heading on ONE line. Move detailed chart-switch labels

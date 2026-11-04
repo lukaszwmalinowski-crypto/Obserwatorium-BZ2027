@@ -25,7 +25,7 @@ function lineSvg(metric){
  const y=v=>231-((v-min)/(max-min||1))*165;
  const fmtSvg=v=>Number(v.toFixed(2));
  let lines='';
- for(let k=0;k<4;k++){const yy=64+k*55;lines+=`<line x1="68" y1="${yy}" x2="810" y2="${yy}" stroke="#e6ebf5"/><text x="57" y="${yy+4}" text-anchor="end" font-size="11" fill="#6b7a92">${fmt(min+(max-min)*(3-k)/3)}</text>`;}
+ for(let k=0;k<4;k++){const yy=64+k*55;lines+=`<line x1="68" y1="${yy}" x2="810" y2="${yy}" stroke="#e6ebf5"/><text x="57" y="${yy+4}" text-anchor="end" font-size="11" fill="#6b7a92">${fmt(Math.round(min+(max-min)*(3-k)/3))}</text>`;}
  let path='',prevMonth=null;
  for(const d of all){const month=Number(d.date.slice(5,7)),xx=fmtSvg(x(month)),yy=fmtSvg(y(d[metric]));path+=(prevMonth!==null&&month===prevMonth+1?' L':' M')+xx+','+yy;prevMonth=month;}
  let nodes='';
@@ -33,7 +33,7 @@ function lineSvg(metric){
  return `<svg class="countyUChart" viewBox="0 0 845 300" role="img" aria-label="Wykres miesięczny dla wskaźnika ${clean(metric)}"><line x1="68" y1="231" x2="810" y2="231" stroke="#bac5da"/>${lines}<path d="${path}" fill="none" stroke="#6257b6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>${nodes}</svg>`;
 }
 function render(){
- const pane=$('compact-unemployment');if(!pane||$('uk2026Section'))return;
+ const pane=$('compact-foreigners');if(!pane||$('uk2026Section'))return;
  const last=ukData.series[ukData.series.length-1];
  const root=document.createElement('details');root.id='uk2026Section';root.className='historyArchive';
  root.innerHTML=`
@@ -84,7 +84,7 @@ function render(){
 }
 // Uruchom dopiero po utworzeniu oryginalnych zakladek przez modul layout.js.
 function attach(){
- if(!document.getElementById('compact-unemployment'))return false;
+ if(!document.getElementById('compact-foreigners'))return false;
  render();
  return !!document.getElementById('uk2026Section');
 }

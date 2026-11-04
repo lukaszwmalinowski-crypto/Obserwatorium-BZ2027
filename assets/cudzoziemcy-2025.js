@@ -32,7 +32,7 @@ function monthlySvg(){
  return `<svg viewBox="0 0 902 278" role="img" aria-label="Miesięczna liczba cudzoziemców wykonujących pracę w województwie śląskim w 2025 roku">${grid}<path d="${line}" fill="none" stroke="#286fbd" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>${nodes}<text x="70" y="21" fill="#17385d" font-weight="700" font-size="13">${fmt(vals[0])} - styczeń</text><text x="670" y="21" fill="#17385d" font-weight="700" font-size="13">${fmt(vals[11])} - grudzień</text></svg>`;
 }
 function attach(){
- const pane=$('compact-gus');if(!pane)return false;
+ const pane=$('compact-foreigners');if(!pane)return false;
  if($('foreign2025Section'))return true;
  const section=document.createElement('details');section.id='foreign2025Section';section.className='historyArchive foreign25Root';
  section.innerHTML=`<summary><div class="historyArchiveTitle"><span class="eyeb">GUS · STAN NA 31.12.2025</span><h2>Cudzoziemcy wykonujący pracę w województwie śląskim</h2><p>12 miesięcy 2025 · 36 powiatów · struktura obywatelstw · dane do prezentacji</p></div></summary>
