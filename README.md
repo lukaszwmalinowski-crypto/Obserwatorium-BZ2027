@@ -166,3 +166,7 @@ Zakładka Demografia zawiera oryginalne karty ludności 2026 i profilu powiatowe
 - wyrównanie wysokości kart w Bezrobociu i Barometrze na szerokich ekranach
 - wspólna dolna linia stopek akcji i przycisków Dodaj
 - równiejsze wysokości kafli sygnałów i benchmarku
+
+
+## v170 - Cudzoziemcy wykonujący pracę (GUS 2025)
+W zakładce Sytuacja gospodarcza pojawił się rozwijany panel „Cudzoziemcy wykonujący pracę w województwie śląskim” z danymi za 2025 r. Zawiera 12 miesięcy, 36 powiatów, strukturę obywatelstw i płci. Wykresy można dodać do Moich materiałów i wyeksportować jako natywne, edytowalne wykresy PowerPoint. Poprawiono także eksport lipiec 2025 vs lipiec 2026 w panelu gospodarki - słupki kolumnowe, ze wskazaniem wartości szacunkowej za 2025. Pozostały interfejs Apple nie został zmieniony.

@@ -24,7 +24,7 @@ const fineSelectors={
  trends:['#trendSection','#historyArchive'],
  rankings:['#atlasRankings .rank'],
  unemployment:['#registeredUnemploymentModule section.gusCard','#pupStructureModule','#pupStructureModule .pupGrid > *','#pupStructureModule .pupTrendCard','#pupStructureModule .pupHistoryCard','#uk2026Overview','#uk2026CountyPanel'],
- gus:['#regionalPulse','#regionalNationalChart','#regionalHistoryPanel','#gusModule section.gusCard'],demography:['#demographyModule .demographyReportCard','#demographyModule .gusCard']
+ gus:['#regionalPulse','#regionalNationalChart','#regionalHistoryPanel','#gusModule section.gusCard','#foreign2025Overview','#foreign2025CountyInfo'],demography:['#demographyModule .demographyReportCard','#demographyModule .gusCard']
 };
 function fineNodes(pane){
  const found=[];const seen=new Set();
@@ -129,7 +129,21 @@ if(node.id==='uk2026CountyPanel'){
   result.exportMeta={county,period:result.period,measure:'Obywatele Ukrainy - karta powiatu',unit:'osoby / zdarzenia'};
   result.structured={...result.structured,metrics};
 }
-  if(node.id==='regionalPulse'){
+  if(node.id==='foreign2025Overview'){
+   result.title='Cudzoziemcy wykonujący pracę - najważniejsze wskaźniki, 2025';
+   result.unit='Województwo śląskie';result.period='stan na 31.12.2025 oraz zmiana styczeń-grudzień';
+   result.source='Urząd Statystyczny w Katowicach - Cudzoziemcy wykonujący pracę w woj. śląskim w 2025 r.';
+   result.exportMeta={period:result.period,measure:'Liczba osób',unit:'osoby',note:'Cudzoziemcy wykonujący pracę (GUS), nie powiadomienia o pracy ani liczba wpisów do PUP.'};
+   result.structured={...result.structured,metrics:[...node.querySelectorAll('.foreign25Kpis>div')].map(x=>({label:x.querySelector('span')?.textContent||'',value:x.querySelector('strong')?.textContent||''})).filter(x=>x.label&&x.value)};
+ }
+ if(node.id==='foreign2025CountyInfo'){
+   const c=document.getElementById('foreign2025CountySelect')?.value||'Wybrany powiat';
+   result.title='Cudzoziemcy wykonujący pracę - '+c;
+   result.unit=c;result.period='31.12.2025';result.source='Urząd Statystyczny w Katowicach - Cudzoziemcy wykonujący pracę w woj. śląskim w 2025 r.';
+   result.exportMeta={period:result.period,measure:'Udział procentowy',unit:'%',note:'Powiat zamieszkania; udziały procentowe (nie liczby bezwzględne). Trzeci wskaźnik jest oszacowany.'};
+   result.structured={...result.structured,metrics:[...node.querySelectorAll('#foreign2025CountyDetails>div')].map(x=>({label:x.querySelector('span')?.textContent||'',value:x.querySelector('strong')?.textContent||''})).filter(x=>x.label&&x.value)};
+ }
+ if(node.id==='regionalPulse'){
     // These four figures have different reference periods: monthly vs cumulative investments.
     // Record that distinction on the exported slide, never label all as July.
     result.unit='Województwo śląskie';
@@ -232,6 +246,7 @@ function pickContext(node,view){
  if(view==='demography'&&node.matches('#demogCountyCard'))params.demogCounty=$('demogSelect')?.value||'';
  if(node.id==='wupUnemploymentChart')params.wupCompare=$('wupCompare')?.checked===true;
  if(node.id==='uk2026Chart')params.uk2026Metric=$('uk2026Metric')?.value||'registered';
+ if(node.id==='foreign2025County')params.foreign2025CountyMetric=$('foreign2025CountyMetric')?.value||'udzial_cudzoziemcow_wsrod_wykonujacych_prace_proc';
  if(['map','jobs','trends'].includes(view))params.occupation=$('occupationSelect')?.value||'';
  if(view==='map')params.mapMode=document.querySelector('.modeButtons .btn.active[data-mode]')?.dataset.mode||'delta';
  // Interaktywne wykresy mogą zmieniać wariant za pomocą kontrolek poza samym SVG.
@@ -420,7 +435,11 @@ const V120_CHARTS=[
  ['gusRegonChart','gus','Podmioty gospodarcze REGON'],
  ['demogLineChart','demography','Demografia powiatowa – ludność'],
  ['regionalNationalChart','gus','Śląskie na tle Polski – dynamika'],
- ['regionalHistoryPanel','gus','Historia wskaźnika gospodarczego']
+ ['regionalHistoryPanel','gus','Historia wskaźnika gospodarczego'],
+ ['foreign2025Monthly','gus','Cudzoziemcy - zmiany miesięczne 2025'],
+ ['foreign2025Nationalities','gus','Cudzoziemcy - obywatelstwa 2025'],
+ ['foreign2025Gender','gus','Cudzoziemcy - podział według płci 2025'],
+ ['foreign2025County','gus','Cudzoziemcy - ranking powiatów 2025']
 ];
 function v120Visible(node){
  if(!node||node.hidden)return false;
@@ -646,6 +665,35 @@ function v120ChartSnapshot(node,view,base){
      item.exportMeta={period:item.period,measure:info[0],unit:info[2],note:info[2]==='powiadomienia'?'Powiadomienia są zdarzeniami, a nie unikalnymi osobami.':''};
    }
  }
+ if(node.id==='regionalHistoryPanel'){
+   const key=node.dataset.metric;
+   const context=document.getElementById('aiRegionalGusContext');
+   let original=null;
+   try{original=(JSON.parse(context?.textContent||'{}').wskazniki||[]).find(x=>x.id===key)}catch(_){}
+   const titles={wynagrodzenie_brutto:'Przeciętne miesięczne wynagrodzenie brutto',zatrudnienie_sektor_przedsiebiorstw:'Przeciętne zatrudnienie w sektorze przedsiębiorstw'};
+   const unit=key==='wynagrodzenie_brutto'?'zł brutto':'tys. etatów';
+   // Use the same embedded GUS observation and published year-over-year
+   // change as the visible economic dashboard. Do not use illustrative numbers.
+   const growth=Number(original?.zmiana_rdr?.wartosc);
+   const current=Number(original?.wartosc);
+   if(titles[key]&&Number.isFinite(current)&&Number.isFinite(growth)&&growth>-100){
+     const previous=Number((current/(1+growth/100)).toFixed(key==='wynagrodzenie_brutto'?2:1));
+     data={kind:'series',labels:['Lipiec 2025 (szac.)','Lipiec 2026'],series:[{name:titles[key],values:[previous,current]}],unit};
+     item.title=titles[key]+' - lipiec 2025 / lipiec 2026';
+     item.unit='Województwo śląskie';item.period='lipiec 2025 i lipiec 2026';
+     item.source='GUS / Urząd Statystyczny w Katowicach - sytuacja społeczno-gospodarcza, lipiec 2026';
+     item.exportMeta={period:item.period,measure:titles[key],unit,note:'UWAGA: lipiec 2025 - szacunek wyliczony z wartości 2026 i dynamiki r/r. Lipiec 2026: dane GUS z aplikacji; lipiec 2025 nie jest odrębną obserwacją GUS.'};
+   }
+ }
+ if(node.id?.startsWith('foreign2025')){
+   const exportData=window.FOREIGNERS_2025_EXPORT?.(node.id);
+   if(exportData?.chartData){
+     data=exportData.chartData;
+     item.title=exportData.title;item.unit='Województwo śląskie';item.period=exportData.period;
+     item.source=exportData.source;
+     item.exportMeta={period:exportData.period,measure:exportData.title,unit:exportData.unit,note:exportData.note};
+   }
+ }
  if(node.id==='gusRegonChart'){
    const current=!!document.querySelector('[data-regon-mode="current"].active');
    const r=gus.regon;
@@ -719,8 +767,8 @@ function v120Sync(){
   const node=$(wrap.dataset.chartId);if(!node)return;
   const active=basket.some(x=>x.selectionKey===pickKey(node,wrap.dataset.view));
   wrap.querySelector('input').checked=active;wrap.classList.toggle('v113Added',active);
-  const text=wrap.querySelector('span');text.textContent=active?'Wybrany ✓':'Dodaj ten wykres';
-  wrap.title=v120ChartTitle(node,wrap.dataset.base||'Wykres');
+  const text=wrap.querySelector('span'),next=active?'Wybrany ✓':'Dodaj ten wykres';if(text&&text.textContent!==next)text.textContent=next;
+  const title=v120ChartTitle(node,wrap.dataset.base||'Wykres');if(wrap.title!==title)wrap.title=title;
   wrap.hidden=!v120Visible(node);
   if(wrap.parentElement?.classList.contains('v123ChartFooter'))wrap.parentElement.hidden=wrap.hidden;
  });
@@ -729,15 +777,28 @@ function v120Sync(){
   map.querySelector('input').checked=Boolean(active);map.classList.toggle('v113Added',Boolean(active));
   map.querySelector('.v120MapName').textContent=v120MapTitle();
   map.querySelector('.v120MapAction').textContent=active?'Mapa wybrana ✓':'Dodaj tę mapę';
-  const chooser=$('v120ChooseOccupation');if(chooser)chooser.textContent=$('occupationSelect')?.value?'Zmień wybrany zawód':'Wybierz zawód, aby pokazać jego mapę';
+  const chooser=$('v120ChooseOccupation');if(chooser){const next=$('occupationSelect')?.value?'Zmień wybrany zawód':'Wybierz zawód, aby pokazać jego mapę';if(chooser.textContent!==next)chooser.textContent=next;}
  }
+}
+// v171 - One selector per real chart, even after asynchronous rerenders.
+// The earlier implementation checked only inside/next to the SVG. For charts
+// inside a .gusCard the selector actually lived at the end of the card, so
+// every MutationObserver pass appended another footer and an empty grid row.
+function v120CanonicalPick(id){
+ const matches=[...document.querySelectorAll('.v120ChartPick')].filter(x=>x.dataset.chartId===id);
+ const keep=matches[0]||null;
+ for(const duplicate of matches.slice(1)){
+  const parent=duplicate.parentElement;
+  duplicate.remove();
+  if(parent?.classList.contains('v123ChartFooter')&&!parent.children.length)parent.remove();
+ }
+ return keep;
 }
 function installV120Picks(){
  const mapNode=document.querySelector('#atlasMap .mapStudioCard');
  if(mapNode&&!$('v120MapPick')){
   const row=document.createElement('label');row.id='v120MapPick';row.className='v120MapPick';
   row.innerHTML='<span class="v120MapText"><strong>Mapa do materiałów</strong><small class="v120MapName"></small></span><span class="v120MapToggle"><input type="checkbox" aria-label="Dodaj aktualną mapę lub mapę wybranego zawodu"><span class="v120MapAction">Dodaj tę mapę</span></span>';
-  // v123: oba narzędzia mapy mają wspólną stopkę POD mapą, bez zakrywania legendy.
   const footer=document.createElement('div');footer.className='v123MapFooter';
   mapNode.append(footer);
   row.querySelector('input').addEventListener('change',v120AddMap);
@@ -750,22 +811,38 @@ function installV120Picks(){
   });
  }
  for(const [id,view,base] of V120_CHARTS){
-  const node=$(id);if(!node||node.dataset.v120Selectable)continue;
+  const node=$(id);
+  const existing=v120CanonicalPick(id);
+  if(!node)continue;
+  const localCard=node.id==='baelQuarterSummary'?null:node.closest('.pupCard,.gusCard,.countyUPanel,.trendCard');
+  const host=localCard||((id==='regionalNationalChart'||id==='regionalHistoryPanel')?node:null);
+  if(existing){
+   // Reuse the original selector instead of creating a new row after every redraw.
+   const footer=existing.parentElement;
+   if(footer?.classList.contains('v123ChartFooter')){
+    if(host&&footer.parentElement!==host)host.append(footer);
+    if(!host&&node.nextElementSibling!==footer)node.insertAdjacentElement('afterend',footer);
+   }
+   node.dataset.v120Selectable='1';
+   continue;
+  }
   node.dataset.v120Selectable='1';
   const row=document.createElement('label');row.className='v120ChartPick';row.dataset.chartId=id;row.dataset.view=view;row.dataset.base=base;
   row.innerHTML='<input type="checkbox" aria-label="Dodaj widoczny wariant wykresu do materiałów"><span>Dodaj ten wykres</span>';
-  // v123: jednolite stopki kart. Przycisk zawsze POD wykresem, po jego podpisie.
-  // Nie zmieniamy referencji samego wykresu ani jego klucza w prezentacji.
   const footer=document.createElement('div');footer.className='v123ChartFooter';
-  const localCard=node.id==='baelQuarterSummary'?null:node.closest('.pupCard,.gusCard,.countyUPanel,.trendCard');
-  const host=localCard||((node.id==='regionalNationalChart'||node.id==='regionalHistoryPanel')?node:null);
-  if(host){
-    host.append(footer);
-    host.classList.add('v123HasChartPick');
-  }else node.insertAdjacentElement('afterend',footer);
+  if(host){host.append(footer);host.classList.add('v123HasChartPick');}
+  else node.insertAdjacentElement('afterend',footer);
   footer.append(row);
-  row.querySelector('input').addEventListener('change',()=>v120Toggle(node,view,base));
+  // Resolve by ID at selection time, since the visualization may be re-rendered.
+  row.querySelector('input').addEventListener('change',()=>{
+   const current=$(id);if(current)v120Toggle(current,view,base);
+  });
  }
+ // If the page had a half-built picker from an older render, never leave
+ // empty footers behind. They occupy whole rows in the Apple card grid.
+ document.querySelectorAll('.v123ChartFooter').forEach(footer=>{
+  if(!footer.children.length)footer.remove();
+ });
  v120Sync();
 }
 function compactBasket(){
@@ -825,7 +902,10 @@ const observed=new MutationObserver(()=>{const sel=document.querySelector('.comp
 chooseView('map');addFineButtons();updateCounter();drawBasket();window.addEventListener('pageshow',()=>{addFineButtons();updateCounter();syncPresentationPicks()});
 document.addEventListener('change',e=>{if(e.target.closest('.compactPane')||e.target.id==='countySelect'||e.target.id==='occupationSelect')requestAnimationFrame(syncPresentationPicks)},true);
 document.addEventListener('click',e=>{if(e.target.closest('[data-pup-group],[data-pup-index],[data-mobile-chart],[data-mode],[data-cu-view],.trendBtn,.trendModeBtn,.gusChartSwitch button,.jobStatusTab'))setTimeout(syncPresentationPicks,60)},true);
-const observer=new MutationObserver(()=>{clearTimeout(window.__v113PickTimer);window.__v113PickTimer=setTimeout(addFineButtons,250)});for(const id of ['compact-unemployment','compact-gus','compact-demography','compact-trends','compact-jobs','compact-rankings','compact-map']){const n=$(id);if(n)observer.observe(n,{childList:true,subtree:true})}window.OBSERWATORIUM_PRESENTATION={get items(){return basket}};
+const observer=new MutationObserver(records=>{
+ if(records.length&&records.every(record=>{const node=record.target.nodeType===1?record.target:record.target.parentElement;return node?.closest?.('.v123ChartFooter,.v114ActionRow,.v123MapFooter,.v119Lists,.v120ChartPick,.v113Pick,.v111Pick');}))return;
+ clearTimeout(window.__v113PickTimer);window.__v113PickTimer=setTimeout(addFineButtons,250)
+});for(const id of ['compact-unemployment','compact-gus','compact-demography','compact-trends','compact-jobs','compact-rankings','compact-map']){const n=$(id);if(n)observer.observe(n,{childList:true,subtree:true})}window.OBSERWATORIUM_PRESENTATION={get items(){return basket}};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

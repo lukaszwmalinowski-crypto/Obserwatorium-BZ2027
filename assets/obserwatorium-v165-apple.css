@@ -132,3 +132,30 @@ html body.compactUI .compactPane[data-view] :is(.regionFrame,.sectionFrame,.data
  html body.compactUI header#siteHeader .headerInner .headerRight .headerActions{grid-template-columns:repeat(4,minmax(0,1fr))!important}
  html body.compactUI header#siteHeader .headerActions .actionBtn,html body.compactUI header#siteHeader .headerActions .exportMenu>summary{font-size:11px!important;padding:6px 2px!important;min-height:36px!important;white-space:nowrap;overflow:hidden}
 }
+
+/* v170 - nowa sekcja GUS o cudzoziemcach, izolowana od dotychczasowego interfejsu Apple */
+.foreign25Root .foreign25Content{padding:12px 14px 18px;display:grid;gap:15px}
+.foreign25Root .foreign25Panel{background:rgba(255,255,255,.86);border:1px solid #d4e1ee;border-radius:17px;padding:17px;min-width:0;color:#193c60}
+.foreign25Root h3{color:#15395f;font-weight:800;font-size:16px;margin:0 0 7px}
+.foreign25Root .foreign25Panel>p{color:#526b85;font-size:12px;margin:0 0 13px;line-height:1.55}
+.foreign25Root .foreign25Kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.foreign25Root .foreign25Kpis>div{display:flex;flex-direction:column;gap:8px;padding:16px 13px;border-radius:13px;background:#eef5fc;border:1px solid #d7e6f3;min-width:0}
+.foreign25Root .foreign25Kpis strong{font-weight:800;font-size:24px;line-height:1.12;color:#184872}
+.foreign25Root .foreign25Kpis span{font-size:11px;line-height:1.4;color:#496884}
+.foreign25Root .foreign25Grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.foreign25Root #foreign2025Monthly svg{display:block;max-width:100%;width:100%;height:auto}
+.foreign25Root .foreign25Bar{display:grid;grid-template-columns:minmax(85px,1.7fr) minmax(65px,2.7fr) 68px;align-items:center;gap:12px;margin:7px 0;font-size:11px;color:#335779}
+.foreign25Root .foreign25Bar span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.foreign25Root .foreign25Bar>div{height:10px;border-radius:12px;background:#e4edf7;overflow:hidden}
+.foreign25Root .foreign25Bar i{height:100%;display:block;background:linear-gradient(90deg,#83b3dc,#3478b5);border-radius:12px}
+.foreign25Root .foreign25Bar strong{font-size:12px;color:#174978;text-align:right}
+.foreign25Root .foreign25Gender{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.foreign25Root .foreign25Gender>div{min-width:0;border-radius:12px;padding:18px;background:#eff6fb;display:flex;flex-direction:column;gap:9px}
+.foreign25Root .foreign25Gender strong{font-size:25px;color:#164872}
+.foreign25Root .foreign25Gender span{font-size:12px;color:#41627f}
+.foreign25Root .foreign25Note{font-size:11px!important;color:#55718b!important;line-height:1.5!important;margin:12px 0 0!important}
+.foreign25Root .foreign25Label{font-size:12px;color:#33597d;display:block;margin:9px 0 5px;font-weight:700}
+.foreign25Root .foreign25Select{width:100%;min-height:39px;border:1px solid #bdd0e4;background:#fff;border-radius:11px;color:#173c64;padding:6px 9px;margin-bottom:12px;font:inherit;font-size:12px}
+.foreign25Root .foreign25Meta a{color:#246da8;text-decoration:underline}
+@media(max-width:900px){.foreign25Root .foreign25Grid{grid-template-columns:1fr}.foreign25Root .foreign25Kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.foreign25Root .foreign25Kpis,.foreign25Root .foreign25Gender{grid-template-columns:1fr}.foreign25Root .foreign25Content{padding:8px}}
