@@ -1,0 +1,538 @@
+{
+  "meta": {
+    "territory": "Województwo śląskie",
+    "bdl_unit_id": "012400000000",
+    "note": "Pakiet GUS/BDL z zasadą: najnowszy dostępny okres dla każdego wskaźnika. Daty odniesienia różnią się między wskaźnikami.",
+    "license": "CC BY 4.0",
+    "audit_date": "2026-10-27",
+    "audit_note": "Brak potwierdzonych wartości BAEL dla województwa śląskiego za I i II kwartał 2026; nie są interpolowane."
+  },
+  "population": {
+    "value_thousands": 4246.702,
+    "date": "2026-06-30",
+    "label": "Ludność",
+    "source": "GUS - Ludność. Stan i struktura... stan 30.06.2026",
+    "source_url": "https://publikacje.new.stat.gov.pl/portal-publikacje/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2026-r-stan-w-dniu-30-czerwca"
+  },
+  "bael_2025": {
+    "activity_rate": [
+      {
+        "period": "I kw. 2025",
+        "value": 56.5
+      },
+      {
+        "period": "II kw. 2025",
+        "value": 55.9
+      },
+      {
+        "period": "III kw. 2025",
+        "value": 55.5
+      },
+      {
+        "period": "IV kw. 2025",
+        "value": 56.5,
+        "note": "Wyrównano z szeregiem BAEL IV kw. 2025 w tej samej bazie i porównaniu Polski; wymaga ostatecznej kontroli z tablicą GUS."
+      }
+    ],
+    "employment_rate": [
+      {
+        "period": "I kw. 2025",
+        "value": 53.6
+      },
+      {
+        "period": "II kw. 2025",
+        "value": 54.1
+      },
+      {
+        "period": "III kw. 2025",
+        "value": 54.9
+      },
+      {
+        "period": "IV kw. 2025",
+        "value": 55.0
+      }
+    ],
+    "source": "Opracowanie Samorządu Województwa Śląskiego na podstawie GUS BDL",
+    "source_url": "https://bip.slaskie.pl/resource/239379/04.%2BZa%25C5%2582.%2B1%2Bdo%2Bproj.%2BUchwa%25C5%2582y%2BSejmiku.pdf",
+    "method_note": "BAEL, ludność w wieku 15–89 lat. Przy interpretacji dłuższych szeregów należy uwzględniać zmiany podstawy uogólniania wyników po NSP 2021."
+  },
+  "regon_per_10k": [
+    {
+      "year": 2016,
+      "value": 1025
+    },
+    {
+      "year": 2017,
+      "value": 1033
+    },
+    {
+      "year": 2018,
+      "value": 1042
+    },
+    {
+      "year": 2019,
+      "value": 1066
+    },
+    {
+      "year": 2020,
+      "value": 1120
+    },
+    {
+      "year": 2021,
+      "value": 1165
+    },
+    {
+      "year": 2022,
+      "value": 1201
+    },
+    {
+      "year": 2023,
+      "value": 1234
+    },
+    {
+      "year": 2024,
+      "value": 1271
+    },
+    {
+      "year": 2025,
+      "value": 1305
+    }
+  ],
+  "regon_current": {
+    "value": 562786,
+    "date": "2026-08",
+    "label": "Podmioty gospodarki narodowej",
+    "companies": 71009,
+    "sole_proprietors": 401514,
+    "source": "Urząd Statystyczny w Katowicach / GUS",
+    "source_url": "https://katowice.stat.gov.pl/zakladka1/",
+    "last_complete_annual_year": 2025,
+    "last_complete_annual_total": 556288
+  },
+  "unemployment_2026": [
+    {
+      "month": "Sty",
+      "value": 4.7
+    },
+    {
+      "month": "Lut",
+      "value": 4.8
+    },
+    {
+      "month": "Mar",
+      "value": 4.9
+    },
+    {
+      "month": "Kwi",
+      "value": 4.9
+    },
+    {
+      "month": "Maj",
+      "value": 4.8
+    },
+    {
+      "month": "Cze",
+      "value": 4.8
+    },
+    {
+      "month": "Lip",
+      "value": 4.8
+    },
+    {
+      "month": "Sie",
+      "value": 4.8
+    },
+    {
+      "month": "Wrz",
+      "value": 4.8
+    }
+  ],
+  "unemployment_source": {
+    "date": "2026-09-30",
+    "source": "GUS / WUP Katowice",
+    "source_url": "https://wupkatowice.praca.gov.pl/rynek-pracy/statystyki-i-analizy/-/asset_publisher/Cmp7VCiKXRkX/content/903058-najwazniejsze-informacje"
+  },
+  "bael_latest": {
+    "period": "II kw. 2026",
+    "publication_date": "2026-09-29",
+    "source": "Urząd Statystyczny w Katowicach / GUS",
+    "source_url": "https://katowice.stat.gov.pl/opracowania-biezace/opracowania-sygnalne/praca-wynagrodzenie/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-2-kwartale-2026-r-%2C2%2C59.html",
+    "note": "Publikacja regionalna jest najnowsza; osadzony wykres kwartalny w panelu pozostaje szeregiem 2025 do czasu wczytania tabeli XLSX GUS."
+  },
+  "registered_unemployed_latest": {
+    "value": 83604,
+    "date": "2026-09-30",
+    "source": "WUP Katowice / GUS"
+  },
+  "bael_activity_q4_2016_2025": [
+    {
+      "year": 2016,
+      "value": 53.8
+    },
+    {
+      "year": 2017,
+      "value": 53.1
+    },
+    {
+      "year": 2018,
+      "value": 52.3
+    },
+    {
+      "year": 2019,
+      "value": 52.3
+    },
+    {
+      "year": 2020,
+      "value": 53.6
+    },
+    {
+      "year": 2021,
+      "value": 57.0
+    },
+    {
+      "year": 2022,
+      "value": 56.6
+    },
+    {
+      "year": 2023,
+      "value": 56.5
+    },
+    {
+      "year": 2024,
+      "value": 55.9
+    },
+    {
+      "year": 2025,
+      "value": 56.5
+    }
+  ],
+  "bael_activity_q4_note": "Współczynnik aktywności zawodowej, ludność 15–89 lat; wartości dla IV kwartału każdego roku. Przy interpretacji szeregu należy uwzględnić zmianę podstawy uogólniania BAEL po NSP 2021.",
+  "unemployment_annual_2016_2025": [
+    {
+      "year": 2016,
+      "value": 6.7
+    },
+    {
+      "year": 2017,
+      "value": 5.1
+    },
+    {
+      "year": 2018,
+      "value": 4.4
+    },
+    {
+      "year": 2019,
+      "value": 3.7
+    },
+    {
+      "year": 2020,
+      "value": 4.9
+    },
+    {
+      "year": 2021,
+      "value": 4.2
+    },
+    {
+      "year": 2022,
+      "value": 3.7
+    },
+    {
+      "year": 2023,
+      "value": 3.6
+    },
+    {
+      "year": 2024,
+      "value": 3.6
+    },
+    {
+      "year": 2025,
+      "value": 4.4
+    }
+  ],
+  "unemployment_annual_note": "Stopa bezrobocia rejestrowanego, stan na 31 grudnia każdego roku. Przy porównywaniu długiego szeregu należy uwzględnić zmianę podstawy części szacunków od 2020 r.",
+  "comparisons_poland": {
+    "bael_activity_q4_2016_2025": [
+      {
+        "year": 2016,
+        "slaskie": 53.8,
+        "polska": 56.3
+      },
+      {
+        "year": 2017,
+        "slaskie": 53.1,
+        "polska": 56.2
+      },
+      {
+        "year": 2018,
+        "slaskie": 52.3,
+        "polska": 56.1
+      },
+      {
+        "year": 2019,
+        "slaskie": 52.3,
+        "polska": 56.0
+      },
+      {
+        "year": 2020,
+        "slaskie": 53.6,
+        "polska": 56.5
+      },
+      {
+        "year": 2021,
+        "slaskie": 57.0,
+        "polska": 58.4
+      },
+      {
+        "year": 2022,
+        "slaskie": 56.6,
+        "polska": 58.7
+      },
+      {
+        "year": 2023,
+        "slaskie": 56.5,
+        "polska": 58.9
+      },
+      {
+        "year": 2024,
+        "slaskie": 55.9,
+        "polska": 58.5
+      },
+      {
+        "year": 2025,
+        "slaskie": 56.5,
+        "polska": 59.0
+      }
+    ],
+    "bael_employment_q4_2024_q4_2025": [
+      {
+        "period": "IV kw. 2024",
+        "slaskie": 54.6,
+        "polska": 56.8
+      },
+      {
+        "period": "I kw. 2025",
+        "slaskie": 53.6,
+        "polska": 56.2
+      },
+      {
+        "period": "II kw. 2025",
+        "slaskie": 54.1,
+        "polska": 56.7
+      },
+      {
+        "period": "III kw. 2025",
+        "slaskie": 54.9,
+        "polska": 57.2
+      },
+      {
+        "period": "IV kw. 2025",
+        "slaskie": 55.0,
+        "polska": 57.1
+      }
+    ],
+    "unemployment_monthly_2026": [
+      {
+        "period": "Sty",
+        "slaskie": 4.7,
+        "polska": 6.0
+      },
+      {
+        "period": "Lut",
+        "slaskie": 4.8,
+        "polska": 6.1
+      },
+      {
+        "period": "Mar",
+        "slaskie": 4.9,
+        "polska": 6.1
+      },
+      {
+        "period": "Kwi",
+        "slaskie": 4.9,
+        "polska": 6.0
+      },
+      {
+        "period": "Maj",
+        "slaskie": 4.8,
+        "polska": 5.9
+      },
+      {
+        "period": "Cze",
+        "slaskie": 4.8,
+        "polska": 5.8
+      },
+      {
+        "period": "Lip",
+        "slaskie": 4.8,
+        "polska": 5.8
+      },
+      {
+        "period": "Sie",
+        "slaskie": 4.8,
+        "polska": 5.8
+      },
+      {
+        "period": "Wrz",
+        "slaskie": 4.8,
+        "polska": 5.8
+      }
+    ],
+    "unemployment_annual_2016_2025": [
+      {
+        "year": 2016,
+        "slaskie": 6.7,
+        "polska": 8.2
+      },
+      {
+        "year": 2017,
+        "slaskie": 5.1,
+        "polska": 6.6
+      },
+      {
+        "year": 2018,
+        "slaskie": 4.4,
+        "polska": 5.8
+      },
+      {
+        "year": 2019,
+        "slaskie": 3.7,
+        "polska": 5.2
+      },
+      {
+        "year": 2020,
+        "slaskie": 4.9,
+        "polska": 6.3
+      },
+      {
+        "year": 2021,
+        "slaskie": 4.2,
+        "polska": 5.4
+      },
+      {
+        "year": 2022,
+        "slaskie": 3.7,
+        "polska": 5.2
+      },
+      {
+        "year": 2023,
+        "slaskie": 3.6,
+        "polska": 5.1
+      },
+      {
+        "year": 2024,
+        "slaskie": 3.6,
+        "polska": 5.1
+      },
+      {
+        "year": 2025,
+        "slaskie": 4.4,
+        "polska": 5.7
+      }
+    ],
+    "note": "Porównania regionalne z Polską. Dla bezrobocia 2020–2021 zachowano historyczną serię przed rewizją, zgodną z wykorzystaną serią wojewódzką."
+  },
+  "registered_unemployed_monthly_2026": [
+    {
+      "period": "2026-01",
+      "value": 82310
+    },
+    {
+      "period": "2026-02",
+      "value": 84628
+    },
+    {
+      "period": "2026-03",
+      "value": 85827
+    },
+    {
+      "period": "2026-04",
+      "value": 84760
+    },
+    {
+      "period": "2026-05",
+      "value": 83388
+    },
+    {
+      "period": "2026-06",
+      "value": 82944
+    },
+    {
+      "period": "2026-07",
+      "value": 83704
+    },
+    {
+      "period": "2026-08",
+      "value": 83820
+    },
+    {
+      "period": "2026-09",
+      "value": 83604
+    }
+  ],
+  "registered_unemployed_annual_2016_2025": [
+    {
+      "year": 2016,
+      "value": 119981
+    },
+    {
+      "year": 2017,
+      "value": 94687
+    },
+    {
+      "year": 2018,
+      "value": 80079
+    },
+    {
+      "year": 2019,
+      "value": 66521
+    },
+    {
+      "year": 2020,
+      "value": 91032
+    },
+    {
+      "year": 2021,
+      "value": 76324
+    },
+    {
+      "year": 2022,
+      "value": 64903
+    },
+    {
+      "year": 2023,
+      "value": 62445
+    },
+    {
+      "year": 2024,
+      "value": 62583
+    },
+    {
+      "year": 2025,
+      "value": 77144
+    }
+  ],
+  "registered_unemployed_note": "Liczba bezrobotnych zarejestrowanych, stan na koniec okresu. Od 1 czerwca 2025 r. zmieniła się zasada rejestracji (miejsce zamieszkania zamiast zameldowania), co może ograniczać porównywalność z wcześniejszymi latami.",
+  "bael_2026_quarterly": {
+    "last_published_quarter": "II kwartał 2026",
+    "publication_date_region": "2026-09-29",
+    "source_region": "https://publikacje.new.stat.gov.pl/portal-publikacje/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-2-kwartale-2026-r",
+    "source_poland": "https://ssgk.stat.gov.pl/Rynek_pracy_BAEL.html",
+    "quarters": [
+      {
+        "period": "I kw. 2026",
+        "activity_poland": 58.7,
+        "employment_poland": 56.8,
+        "activity_slaskie": null,
+        "employment_slaskie": null
+      },
+      {
+        "period": "II kw. 2026",
+        "activity_poland": 58.7,
+        "employment_poland": 56.8,
+        "activity_slaskie": null,
+        "employment_slaskie": null
+      }
+    ],
+    "status": "Dane Śląskie za 2026 opublikowane, ale liczb nie udało się potwierdzić z oryginalnych tabel GUS. Pola null celowe: brak zgadywania."
+  }
+}
