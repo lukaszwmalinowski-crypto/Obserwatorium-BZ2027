@@ -173,6 +173,25 @@
   }
   // v142: Same vertical, five-color layout as the comparison chart in the app.
   // v169: native PowerPoint columns, with an embedded editable Excel data table.
+  // v179: Narracja Barometru w pełnej długości, jako EDYTOWALNE pola tekstowe PPTX.
+  // Zwykłe karty sygnałów skracają opisy do 170 znaków; analiza lokalna nie może tracić treści.
+  function drawMapCommentary(slide,pptx,item,accent){
+    const pieces=item.structured?.signals||[];
+    if(pieces.length<2)return false;
+    contentPanel(slide,pptx);
+    const rows=pieces.slice(0,2);
+    const pos=[{y:2.96,h:1.66},{y:4.82,h:1.63}];
+    rows.forEach((part,i)=>{
+      const {y,h}=pos[i],x=1.05,w=11.13;
+      fill(slide,pptx,x,y,w,h,WHITE,.13,'DDE7F3');
+      fill(slide,pptx,x,y,.07,h,accent,.01);
+      txt(slide,part.label,x+.24,y+.14,w-.49,.31,14,{bold:true,color:NAVY,valign:'mid'});
+      const content=String(part.detail||'').trim();
+      const size=content.length>450?10.7:content.length>340?11.1:11.7;
+      txt(slide,content,x+.24,y+.49,w-.49,h-.59,size,{color:TEXT,fit:'shrink',valign:'top',breakLine:false});
+    });
+    return true;
+  }
   function drawComparison(slide,pptx,rows,meta){
     const valid=(rows||[]).filter(x=>x?.label&&Number.isFinite(Number(x.value))).slice(0,5);
     if(valid.length<2)return false;
@@ -723,6 +742,7 @@ function drawDemographyColumns(slide,pptx,chart,kind){
           const metrics=struct.metrics?.length?struct.metrics:(/Gospodarka województwa/i.test(item.title||'')?parseSector(item):(/punkt odniesienia/i.test(item.title||'')?parseBenchmark(item):parseOccupationStructure(item)));
           if(metrics?.length>=1)drawn=addMetrics(slide,pptx,metrics,accent);
         }
+        if(!drawn&&String(item.selectionKey||'').startsWith('map-commentary-v179:'))drawn=drawMapCommentary(slide,pptx,item,accent);
         if(!drawn&&struct.signals?.length>=1)drawn=addStatements(slide,pptx,struct.signals,accent);
         if(!drawn){const image=await imageFor(item);
           if(image){contentPanel(slide,pptx);imageFit(slide,image,.97,2.91,11.35,item.structured?.map?3.18:3.34);

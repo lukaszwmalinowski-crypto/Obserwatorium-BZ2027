@@ -1,3 +1,13 @@
+# Wydanie v182 - 36 autorskich profili rynku pracy (04.11.2026)
+
+W panelu **„Co mówi nam mapa?”** umieszczono 36 redakcyjnie opracowanych, indywidualnych diagnoz i 144 oddzielne perspektywy: PUP, pracodawcy, poszukujący pracy oraz uczniowie. Nie są one automatycznie układane z powtarzalnych szablonów zdań. W każdej jednostce podano miejscowy problem, funkcję w regionie oraz ostrożnie sformułowane kierunki działań.
+
+**Dane wyjściowe i daty:** Barometr Zawodów - prognoza na 2027 r. wraz z komentarzami ekspertów; bezrobocie powiatowe GUS 30.09.2026; cudzoziemcy wykonujący pracę GUS - 31.12.2025; dojazdy do pracy GUS/NSP - **2021** (dane historyczne); kontekst inwestycji i transformacji na podstawie KSSE i Terytorialnego Planu Sprawiedliwej Transformacji 2030. Dane o dojazdach nie dowodzą przyczyn niskiego bezrobocia i nie są aktualnym pomiarem z 2026 r. Źródła merytoryczne: https://barometrzawodow.pl/ , https://katowice.stat.gov.pl/ , https://www.ksse.pl/granice-strefy-2953 , https://transformacja.slaskie.pl/ .
+
+**Zakres zmian:** wyłącznie logika i treść panelu pod mapą, jego jednozdaniowy nagłówek tezy oraz pamięć podręczna PWA. Pozostałe 36 powiatowych danych statystycznych, mapy, układy Apple i mechanizmy eksportu pozostają bez zmian. Tekst dodany do „Moich materiałów” zawiera wybraną perspektywę i tezę lokalną. Redakcyjne profile są przypisane do prognozy 2027; po aktualizacji Barometru wymagają ponownego przeglądu.
+
+---
+
 ## Audyt powtórzeń danych (v157)
 
 Wersja v157 usuwa niepotrzebnie powielane KPI w Sytuacji gospodarczej, upraszcza opis demografii i poprawia podpis liczby dostępnych jednostek. Dane źródłowe pozostają bez zmian. Szczegóły: `AUDYT_POWTORZEN_V157.md`.
@@ -177,3 +187,15 @@ W zakładce Sytuacja gospodarcza pojawił się rozwijany panel „Cudzoziemcy wy
 - Wykres osób w module Ukraina: etykiety osi wyłącznie w pełnych osobach.
 - Zachowanie wybranego powiatu podczas przełączania GUS/PUP (zgodne nazwy miast i powiatów).
 - Odświeżony klucz cache PWA, pozostałe dane oraz wygląd innych działów bez zmian.
+
+## Wersja v183 - Trendy i kompetencje
+
+Nowa zakładka główna "Trendy i kompetencje" przedstawia dwa regionalne badania firm
+(WUP Katowice / Grupa BST 2026, N=470; WUP Katowice / EU-CONSULT /
+Grupa BST 2025, N=513), cztery obszary przemian pracy oraz wybór powiatu.
+Wyniki procentowe z badań dotyczą województwa, a nie poszczególnych powiatów.
+Powiatowe odniesienia powstają wyłącznie na podstawie statusów zawodów z
+pełnej macierzy Barometru Zawodów 2027 (168 grup x 36 jednostek).
+Nie są one lokalnym pomiarem umiejętności cyfrowych ani prognozą liczby etatów.
+Wykresy i komentarze można dodać do Moich materiałów, a regionalne wykresy
+są eksportowane do PPTX jako edytowalne obiekty.

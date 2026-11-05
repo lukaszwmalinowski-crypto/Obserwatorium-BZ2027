@@ -3,7 +3,7 @@
 'use strict';
 const $=id=>document.getElementById(id);if(!$('pupStructureModule'))return;
 document.body.classList.add('compactUI');
-const definitions=[['map','Mapa'],['jobs','Zawody'],['trends','Trendy'],['rankings','Rankingi'],['unemployment','Bezrobocie'],['foreigners','Cudzoziemcy'],['gus','Sytuacja gosp.'],['demography','Demografia'],['sources','Źródła']];
+const definitions=[['map','Mapa'],['jobs','Zawody'],['trends','Trendy'],['rankings','Rankingi'],['unemployment','Bezrobocie'],['foreigners','Cudzoziemcy'],['gus','Sytuacja gosp.'],['demography','Demografia'],['skills','Trendy i kompetencje'],['sources','Źródła']];
 const main=document.querySelector('.studioContent'),panes={};
 let presentationActive=false;
 let presentationOpenStates=[];
@@ -159,7 +159,7 @@ for(const node of Array.from(fields.children))if(!node.classList.contains('count
 fields.appendChild(filters);
 main.insertBefore($('filterStudio'),panes.map);
 // v148: Full-screen presentation is a single continuous narrative, not one tab at a time.
-const presentationLabels={map:'Mapa i profil',jobs:'Zawody i analiza',trends:'Trendy i historia',rankings:'Rankingi',unemployment:'Bezrobocie',foreigners:'Cudzoziemcy na rynku pracy',gus:'Sytuacja gospodarcza, BAEL i REGON',demography:'Demografia, ludność i migracje',sources:'Źródła danych'};
+const presentationLabels={map:'Mapa i profil',jobs:'Zawody i analiza',trends:'Trendy i historia',rankings:'Rankingi',unemployment:'Bezrobocie',foreigners:'Cudzoziemcy na rynku pracy',gus:'Sytuacja gospodarcza, BAEL i REGON',demography:'Demografia, ludność i migracje',skills:'Trendy i kompetencje przyszłości',sources:'Źródła danych'};
 const presentationToolbar=document.createElement('nav');
 presentationToolbar.id='continuousPresentationNav';
 presentationToolbar.className='continuousPresentationNav';
@@ -207,7 +207,7 @@ function setPresentationMode(enabled){
 const nav=document.querySelector('.chapterRailInner');nav.replaceChildren();
 const mobile=document.createElement('div');mobile.className='compactMobileNav';mobile.innerHTML='<label for="compactViewSelect">Widok</label><select id="compactViewSelect">'+definitions.map(([id,l])=>`<option value="${id}">${l}</option>`).join('')+'</select>';nav.appendChild(mobile);
 for(const [id,label] of definitions){const b=document.createElement('button');b.type='button';b.className='compactNavButton';b.dataset.view=id;b.textContent=label;b.setAttribute('aria-controls','compact-'+id);b.addEventListener('click',()=>show(id));nav.appendChild(b)}
-const aliases={demographyModule:'demography',demogCountyCard:'demography',chapterDemography:'demography',chapterMap:'map',atlasMap:'map',studioStart:'map',chapterJobs:'jobs',atlasAnalysis:'jobs',occupationProfileSection:'jobs',chapterTrends:'trends',trendSection:'trends',historyArchive:'trends',chapterStatistics:'gus',gusModule:'gus',foreign2025Section:'foreigners',uk2026Section:'foreigners',countyUnempModule:'unemployment',pupStructureModule:'unemployment',chapterRankings:'rankings',atlasRankings:'rankings',atlasSources:'sources',pupSourcesSection:'sources'};
+const aliases={demographyModule:'demography',ts183County:'skills',demogCountyCard:'demography',chapterDemography:'demography',chapterMap:'map',atlasMap:'map',studioStart:'map',chapterJobs:'jobs',atlasAnalysis:'jobs',occupationProfileSection:'jobs',chapterTrends:'trends',trendSection:'trends',historyArchive:'trends',chapterStatistics:'gus',gusModule:'gus',foreign2025Section:'foreigners',uk2026Section:'foreigners',countyUnempModule:'unemployment',pupStructureModule:'unemployment',chapterRankings:'rankings',atlasRankings:'rankings',atlasSources:'sources',pupSourcesSection:'sources'};
 let active='map';
 function show(id,scroll=true){
  if(!panes[id])id='map';
@@ -216,7 +216,7 @@ function show(id,scroll=true){
  for(const [key,pane] of Object.entries(panes))pane.hidden=key!==id;
  document.body.dataset.compactView=id;$('compactViewSelect').value=id;
  nav.querySelectorAll('.compactNavButton').forEach(b=>{const on=b.dataset.view===id;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
- $('filterStudio').hidden=['sources','gus','foreigners','demography','rankings'].includes(id);
+ $('filterStudio').hidden=['sources','gus','foreigners','demography','skills','rankings'].includes(id);
  if(id==='unemployment'){
   $('countyUnempModule').open=true;
   /* Zachowaj wybór województwa w tej zakładce. */

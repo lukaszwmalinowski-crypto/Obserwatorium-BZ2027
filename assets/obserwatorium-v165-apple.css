@@ -162,8 +162,8 @@ html body.compactUI .compactPane[data-view] :is(.regionFrame,.sectionFrame,.data
 
 /* v174 - navigation and ordered section headings, keeping Apple look */
 @media(max-width:767px){
- html body.compactUI .v111MobileNav{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:2px!important}
- html body.compactUI .v111MobileNav button{font-size:10px!important;min-width:0!important;padding:5px 1px!important;letter-spacing:-.025em}
+ html body.compactUI .v111MobileNav{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:2px!important}
+ html body.compactUI .v111MobileNav button{font-size:9.2px!important;min-width:0!important;padding:5px 1px!important;letter-spacing:-.035em;overflow-wrap:anywhere}
 }
 html body.compactUI .v174ChapterTitle{margin:17px 4px 12px;color:#1d1d1f;font-size:17px;line-height:1.35;font-weight:650;letter-spacing:-.02em}
 html body.compactUI .v174ChapterTitle small{display:block;color:#6e6e73;font-size:12px;font-weight:450;letter-spacing:0;line-height:1.5;margin-top:3px}
